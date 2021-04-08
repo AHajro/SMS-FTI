@@ -1,0 +1,75 @@
+$(document).ready(function(){	
+	$('#search').click(function(){
+		$('#studentList').removeClass('hidden');
+		$('#saveAttendance').removeClass('hidden');
+		if ($.fn.DataTable.isDataTable("#studentList")) {
+			$('#studentList').DataTable().clear().destroy();
+		}
+
+		var lendaid = $('#lendaid').val();
+		var classid = $('#classid').val();
+		var sectionid = $('#sectionid').val();
+		var niveliid = $('#niveliid').val();
+		var degaid = $('#degaid').val();
+		
+		if(classid) {
+			$.ajax({
+				url:"action.php",
+				method:"POST",
+				data:{classid:classid, action:"attendanceStatus"},
+				success:function(data) {					
+					$('#message').text(data).removeClass('hidden');	
+				}
+			})
+			$('#studentList').DataTable({
+				"lengthChange": false,
+				"processing":true,
+				"serverSide":true,
+				"order":[],
+				"ajax":{
+					url:"action.php",
+					type:"POST",				
+					data:{lendaid:lendaid, niveliid:niveliid, degaid:degaid, classid:classid, sectionid:sectionid, action:'getStudentsPerfundimtare'},
+					dataType:"json"
+				},
+				"columnDefs":[
+					{
+						"targets":[0],
+						"orderable":false,
+					},
+				],
+				"pageLength": 10
+			});				
+		}
+	});
+	$("#niveliid").change(function() {		
+        $('#att_niveliid').val($(this).val());		
+    });
+	$("#degaid").change(function() {		
+        $('#att_degaid').val($(this).val());		
+    });		
+	$("#classid").change(function() {		
+        $('#att_classid').val($(this).val());		
+    });	
+	$("#sectionid").change(function() {
+		$('#att_sectionid').val($(this).val());		
+    });
+	$("#lendaid").change(function() {
+		$('#att_lendaid').val($(this).val());		
+    });
+	$("#nota").change(function() {
+		$('#nota').val($(this).val());		
+    });
+	$("#attendanceForm").submit(function(e) {		
+		var formData = $(this).serialize();
+		$.ajax({
+			url:"action.php",
+			method:"POST",
+			data:formData,
+			success:function(data){				
+				$('#message').text(data).removeClass('hidden');				
+			}
+		});
+		return false;
+	});	
+});

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.0.3
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Mar 16, 2021 at 10:52 PM
+- Server version: 10.4.14-MariaDB
+- PHP Version: 7.4.11
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="databaza_projekti" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="sms_dega">
+                CREATE TABLE `sms_dega` (
+                  `id_dega` int(11) NOT NULL AUTO_INCREMENT,
+                  `dega` varchar(30) NOT NULL,
+                  PRIMARY KEY (`id_dega`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="sms_grupet">
+                CREATE TABLE `sms_grupet` (
+                  `section_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `section` varchar(255) NOT NULL,
+                  PRIMARY KEY (`section_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="sms_lendet">
+                CREATE TABLE `sms_lendet` (
+                  `subject_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `subject` varchar(255) NOT NULL,
+                  `type` varchar(255) NOT NULL,
+                  `teacher_id` int(11) NOT NULL,
+                  `niveli_id` int(11) NOT NULL,
+                  `dega_id` int(11) NOT NULL,
+                  `class_id` int(11) NOT NULL,
+                  `grupi_id` varchar(50) NOT NULL,
+                  PRIMARY KEY (`subject_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="sms_niveli">
+                CREATE TABLE `sms_niveli` (
+                  `niveli_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `niveli` varchar(30) NOT NULL,
+                  PRIMARY KEY (`niveli_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="sms_pedagog">
+                CREATE TABLE `sms_pedagog` (
+                  `teacher_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `teacher` varchar(255) NOT NULL,
+                  `mbiemri` varchar(50) NOT NULL,
+                  `titulli` varchar(50) NOT NULL,
+                  `email` varchar(50) NOT NULL,
+                  `password` varchar(50) NOT NULL,
+                  `status` varchar(50) NOT NULL,
+                  PRIMARY KEY (`teacher_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="sms_pjesemarrja">
+                CREATE TABLE `sms_pjesemarrja` (
+                  `attendance_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `student_id` int(11) NOT NULL,
+                  `lenda_id` int(11) NOT NULL,
+                  `niveli_id` int(11) NOT NULL,
+                  `dega_id` int(11) NOT NULL,
+                  `class_id` int(11) NOT NULL,
+                  `section_id` int(11) NOT NULL,
+                  `attendance_status` int(11) NOT NULL,
+                  `seminar_comment` text NOT NULL,
+                  `leksion_comment` text NOT NULL,
+                  `attendance_date` varchar(255) NOT NULL,
+                  PRIMARY KEY (`attendance_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="sms_rezultat">
+                CREATE TABLE `sms_rezultat` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `student_id` int(11) NOT NULL,
+                  `lenda_id` int(11) NOT NULL,
+                  `lab_points` int(11) NOT NULL,
+                  `detyra_points` int(11) NOT NULL,
+                  `provim_points` int(11) NOT NULL,
+                  `nota` int(11) NOT NULL,
+                  `lab_comment` text NOT NULL,
+                  `detyra_comment` text NOT NULL,
+                  `provim_comment` text NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="sms_students">
+                CREATE TABLE `sms_students` (
+                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                  `name` varchar(40) NOT NULL,
+                  `mbiemri` varchar(40) NOT NULL,
+                  `dob` varchar(255) NOT NULL,
+                  `father_name` varchar(255) NOT NULL,
+                  `niveli` varchar(50) NOT NULL,
+                  `dega` varchar(50) NOT NULL,
+                  `class` int(10) unsigned NOT NULL,
+                  `section` int(11) NOT NULL,
+                  `admission_date` varchar(255) NOT NULL,
+                  `email` varchar(40) DEFAULT NULL,
+                  `password` varchar(50) NOT NULL,
+                  `status` varchar(50) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="sms_user">
+                CREATE TABLE `sms_user` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `first_name` varchar(50) NOT NULL,
+                  `last_name` varchar(50) NOT NULL,
+                  `email` varchar(50) NOT NULL,
+                  `password` varchar(50) NOT NULL,
+                  `type` varchar(250) NOT NULL DEFAULT 'general',
+                  `status` enum('active','pending','deleted','') NOT NULL DEFAULT 'pending',
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="sms_vitet">
+                CREATE TABLE `sms_vitet` (
+                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                  `name` varchar(40) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'databaza_projekti'
+    -->
+    <database name="databaza_projekti">
+        <!-- Table sms_dega -->
+        <table name="sms_dega">
+            <column name="id_dega">1</column>
+            <column name="dega">Inxhinieri Informatike</column>
+        </table>
+        <table name="sms_dega">
+            <column name="id_dega">2</column>
+            <column name="dega">Inxhinieri Elektronike</column>
+        </table>
+        <table name="sms_dega">
+            <column name="id_dega">3</column>
+            <column name="dega">Inxhinieri Telekomunikacioni</column>
+        </table>
+        <!-- Table sms_grupet -->
+        <table name="sms_grupet">
+            <column name="section_id">1</column>
+            <column name="section">A</column>
+        </table>
+        <table name="sms_grupet">
+            <column name="section_id">2</column>
+            <column name="section">B</column>
+        </table>
+        <table name="sms_grupet">
+            <column name="section_id">3</column>
+            <column name="section">C</column>
+        </table>
+        <table name="sms_grupet">
+            <column name="section_id">4</column>
+            <column name="section">D</column>
+        </table>
+        <!-- Table sms_lendet -->
+        <table name="sms_lendet">
+            <column name="subject_id">1</column>
+            <column name="subject">Inxhinieri Softi</column>
+            <column name="type">Leksion</column>
+            <column name="teacher_id">1</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="grupi_id">A, B, C, D</column>
+        </table>
+        <table name="sms_lendet">
+            <column name="subject_id">2</column>
+            <column name="subject">Programim Web</column>
+            <column name="type">Leksion</column>
+            <column name="teacher_id">2</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="grupi_id">A, B, C, D</column>
+        </table>
+        <table name="sms_lendet">
+            <column name="subject_id">3</column>
+            <column name="subject">Databaze</column>
+            <column name="type">Seminar</column>
+            <column name="teacher_id">3</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="grupi_id">C, D</column>
+        </table>
+        <table name="sms_lendet">
+            <column name="subject_id">4</column>
+            <column name="subject">Strukture Te Dhenash</column>
+            <column name="type">Leksion</column>
+            <column name="teacher_id">2</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="grupi_id">A, B, C, D</column>
+        </table>
+        <table name="sms_lendet">
+            <column name="subject_id">5</column>
+            <column name="subject">Test Aldora</column>
+            <column name="type">Seminar</column>
+            <column name="teacher_id">4</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="grupi_id">A, B </column>
+        </table>
+        <!-- Table sms_niveli -->
+        <table name="sms_niveli">
+            <column name="niveli_id">1</column>
+            <column name="niveli">Bachelor</column>
+        </table>
+        <table name="sms_niveli">
+            <column name="niveli_id">2</column>
+            <column name="niveli">Master</column>
+        </table>
+        <!-- Table sms_pedagog -->
+        <table name="sms_pedagog">
+            <column name="teacher_id">1</column>
+            <column name="teacher">Besjana</column>
+            <column name="mbiemri">Muraku</column>
+            <column name="titulli">Msc</column>
+            <column name="email">besjana.pedagog@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_pedagog">
+            <column name="teacher_id">2</column>
+            <column name="teacher">Nelda</column>
+            <column name="mbiemri">Kote</column>
+            <column name="titulli">Msc</column>
+            <column name="email">nelda.pedagog@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_pedagog">
+            <column name="teacher_id">3</column>
+            <column name="teacher">Test</column>
+            <column name="mbiemri">Pedagog</column>
+            <column name="titulli">Dr</column>
+            <column name="email">test.pedagog@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_pedagog">
+            <column name="teacher_id">4</column>
+            <column name="teacher">Aldora</column>
+            <column name="mbiemri">Pedagog</column>
+            <column name="titulli">Prof. Dr.</column>
+            <column name="email">aldora.pedagog@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <!-- Table sms_pjesemarrja -->
+        <table name="sms_pjesemarrja">
+            <column name="attendance_id">1</column>
+            <column name="student_id">1</column>
+            <column name="lenda_id">2</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">1</column>
+            <column name="class_id">3</column>
+            <column name="section_id">3</column>
+            <column name="attendance_status">3</column>
+            <column name="seminar_comment">+</column>
+            <column name="leksion_comment"></column>
+            <column name="attendance_date">2021/02/23</column>
+        </table>
+        <table name="sms_pjesemarrja">
+            <column name="attendance_id">2</column>
+            <column name="student_id">9</column>
+            <column name="lenda_id">2</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">2</column>
+            <column name="class_id">1</column>
+            <column name="section_id">2</column>
+            <column name="attendance_status">1</column>
+            <column name="seminar_comment">+</column>
+            <column name="leksion_comment"></column>
+            <column name="attendance_date">2021/02/23</column>
+        </table>
+        <table name="sms_pjesemarrja">
+            <column name="attendance_id">3</column>
+            <column name="student_id">7</column>
+            <column name="lenda_id">4</column>
+            <column name="niveli_id">1</column>
+            <column name="dega_id">2</column>
+            <column name="class_id">3</column>
+            <column name="section_id">0</column>
+            <column name="attendance_status">0</column>
+            <column name="seminar_comment"></column>
+            <column name="leksion_comment">+</column>
+            <column name="attendance_date">2021/02/23</column>
+        </table>
+        <!-- Table sms_rezultat -->
+        <table name="sms_rezultat">
+            <column name="id">11</column>
+            <column name="student_id">1</column>
+            <column name="lenda_id">2</column>
+            <column name="lab_points">90</column>
+            <column name="detyra_points">60</column>
+            <column name="provim_points">70</column>
+            <column name="nota">10</column>
+            <column name="lab_comment">+</column>
+            <column name="detyra_comment"></column>
+            <column name="provim_comment"></column>
+        </table>
+        <table name="sms_rezultat">
+            <column name="id">12</column>
+            <column name="student_id">3</column>
+            <column name="lenda_id">2</column>
+            <column name="lab_points">12</column>
+            <column name="detyra_points">20</column>
+            <column name="provim_points">0</column>
+            <column name="nota">0</column>
+            <column name="lab_comment"></column>
+            <column name="detyra_comment">Komenti juaj</column>
+            <column name="provim_comment"></column>
+        </table>
+        <!-- Table sms_students -->
+        <table name="sms_students">
+            <column name="id">1</column>
+            <column name="name">Aldora</column>
+            <column name="mbiemri">Hajro</column>
+            <column name="dob">16/09/1998</column>
+            <column name="father_name">Ferbent</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">3</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">aldora.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">2</column>
+            <column name="name">Stefani</column>
+            <column name="mbiemri">Tollumi</column>
+            <column name="dob">28/10/1999</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">1</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">stefani.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">3</column>
+            <column name="name">Sibora</column>
+            <column name="mbiemri">Venxha</column>
+            <column name="dob">31/12/1999</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">2</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">sibora.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">4</column>
+            <column name="name">Imelda</column>
+            <column name="mbiemri">Zenelaj</column>
+            <column name="dob">21/04/1999</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">4</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">imelda.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">5</column>
+            <column name="name">TestA</column>
+            <column name="mbiemri">Student</column>
+            <column name="dob">20/02/1999</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">1</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">testa.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">6</column>
+            <column name="name">TestB</column>
+            <column name="mbiemri">Student</column>
+            <column name="dob">20/02/199</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">1</column>
+            <column name="class">3</column>
+            <column name="section">2</column>
+            <column name="admission_date">21/02/2021</column>
+            <column name="email">testb.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">7</column>
+            <column name="name">Ing. Elektro</column>
+            <column name="mbiemri">Bachelor</column>
+            <column name="dob">02/02/1999</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">2</column>
+            <column name="class">3</column>
+            <column name="section">1</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">ingelektro.student@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">8</column>
+            <column name="name">Aldora</column>
+            <column name="mbiemri">Master</column>
+            <column name="dob">16/09/1998</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">2</column>
+            <column name="dega">1</column>
+            <column name="class">1</column>
+            <column name="section">1</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">aldora.master@gmail.com</column>
+            <column name="password">c20ad4d76fe97759aa27a0c99bff6710</column>
+            <column name="status">active</column>
+        </table>
+        <table name="sms_students">
+            <column name="id">9</column>
+            <column name="name">Ing. Tlk</column>
+            <column name="mbiemri">Bachelor</column>
+            <column name="dob">20/02/2021</column>
+            <column name="father_name">Test</column>
+            <column name="niveli">1</column>
+            <column name="dega">3</column>
+            <column name="class">1</column>
+            <column name="section">2</column>
+            <column name="admission_date">20/02/2021</column>
+            <column name="email">ingtlk@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="status">active</column>
+        </table>
+        <!-- Table sms_user -->
+        <table name="sms_user">
+            <column name="id">19</column>
+            <column name="first_name">Aldora</column>
+            <column name="last_name">Admin</column>
+            <column name="email">aldora.admin@gmail.com</column>
+            <column name="password">202cb962ac59075b964b07152d234b70</column>
+            <column name="type">administrator</column>
+            <column name="status">active</column>
+        </table>
+        <!-- Table sms_vitet -->
+        <table name="sms_vitet">
+            <column name="id">1</column>
+            <column name="name">Viti 1</column>
+        </table>
+        <table name="sms_vitet">
+            <column name="id">2</column>
+            <column name="name">Viti 2</column>
+        </table>
+        <table name="sms_vitet">
+            <column name="id">3</column>
+            <column name="name">Viti 3</column>
+        </table>
+    </database>
+</pma_xml_export>
